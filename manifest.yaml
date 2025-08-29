@@ -1,7 +1,7 @@
 workloads:
   main:
     resources:
-      queue:
+    queue:
         type: queue 
       bucket:
         type: bucket
