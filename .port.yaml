@@ -1,0 +1,17 @@
+identifier: kaspartest-hello-world
+title: Hello World React App
+description: Demo React application with Humanitec infrastructure orchestration
+blueprint: _service
+properties:
+  type: Frontend
+  language: JavaScript
+  framework: React
+  lifecycle: Development
+  tier: 1
+  hasTests: true
+  hasDockerfile: true
+  hasHelm: true
+relations:
+  team: []
+  domain: []
+  system: []
