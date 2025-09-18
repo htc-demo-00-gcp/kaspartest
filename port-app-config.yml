@@ -1,0 +1,53 @@
+resources:  
+  - kind: repository  
+    selector:  
+      query: '.name == "kaspartest"'
+    port:  
+      entity:  
+        mappings:  
+          identifier: ".kaspartest"
+          title: ".kaspartest"
+          blueprint: '"githubRepository"'
+          properties:  
+            readme: file://README.md
+            url: .html_url
+            defaultBranch: .default_branch
+
+  - kind: branch  
+    selector:  
+      query: 'true'
+    port:  
+      entity:  
+        mappings:  
+          identifier: .repository.name + "_" + .branch.name
+          title: .repository.name + " " + .branch.name
+          blueprint: '"branch"'
+          properties:  
+            is_protected: .branch.protected
+            commit_sha: .branch.commit.sha
+            commit_url: .branch.commit.url
+          relations:  
+            repository: .repository.name
+
+  - kind: pull-request  
+    selector:  
+      query: 'true'
+    port:  
+      entity:  
+        mappings:  
+          identifier: ".head.repo.name + (.id|tostring)"
+          title: ".title"
+          blueprint: '"githubPullRequest"'
+          properties:  
+            creator: ".user.login"
+            assignees: "[.assignees[].login]"
+            reviewers: "[.requested_reviewers[].login]"
+            status: ".status"
+            closedAt: ".closed_at"
+            updatedAt: ".updated_at"
+            mergedAt: ".merged_at"
+            createdAt: ".created_at"
+            prNumber: ".number"
+            link: ".html_url"
+          relations:  
+            repository: .head.repo.name
